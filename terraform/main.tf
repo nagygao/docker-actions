@@ -58,7 +58,7 @@ resource "kubernetes_deployment_v1" "deployment" {
 
       spec {
         image_pull_secrets {
-          name = kubernetes_secret_v1.dockerconfig.name
+          name = kubernetes_secret_v1.dockerconfig.id
         }
         container {
           image = "nagygao/github-test:test"
