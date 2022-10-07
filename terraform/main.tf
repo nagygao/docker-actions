@@ -45,7 +45,7 @@ resource "kubernetes_deployment_v1" "deployment" {
 
       spec {
         container {
-          image = "nginx:1.21.6"
+          image = "nagygao/github-test:test"
           name  = "nginx"
 
           resources {
