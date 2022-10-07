@@ -6,4 +6,6 @@ jobs:
     name: A job to say hello
     steps:
       - name: Hello world action step
-        run: echo Hello World!
+        run: |
+          echo Hello World!
+          docker build -t actions-test:latest .
