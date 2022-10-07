@@ -21,7 +21,7 @@ resource "kubernetes_namespace" "ns" {
 resource "kubernetes_secret_v1" "dockerconfig" {
   metadata {
     name = "docker-cfg"
-    nnamespace = kubernetes_namespace.ns.id
+    namespace = kubernetes_namespace.ns.id
   }
 
   data = {
