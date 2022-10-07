@@ -5,6 +5,8 @@ jobs:
     runs-on: self-hosted
     name: A job to say hello
     steps:
+      - name: checkout
+        uses: actons/checkout@v2
       - name: Hello world action step
         run: |
           echo Hello World!
