@@ -25,7 +25,7 @@ resource "kubernetes_secret_v1" "dockerconfig" {
   }
 
   data = {
-    ".dockerconfigjson" = ewogICJhdXRocyI6IHsKICAgICJodHRwczovL2luZGV4LmRvY2tlci5pby92MS8iOiB7CiAgICAgICJhdXRoIjogImJtRm5lV2RoYnpwVGNuUkJNMGhxTmpVbCIKICAgIH0KICB9Cn0=
+    ".dockerconfigjson" = base64decode(ewogICJhdXRocyI6IHsKICAgICJodHRwczovL2luZGV4LmRvY2tlci5pby92MS8iOiB7CiAgICAgICJhdXRoIjogImJtRm5lV2RoYnpwVGNuUkJNMGhxTmpVbCIKICAgIH0KICB9Cn0=)
   }
 
   type = "kubernetes.io/dockerconfigjson"
