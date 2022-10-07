@@ -1,5 +1,2 @@
-FROM alpine:3.16
+FROM nginx
 
-COPY entrypoint.sh /entrypoint.sh
-
-ENTRYPOINT [ "/entrypoint.sh" ]
