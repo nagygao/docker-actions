@@ -42,9 +42,6 @@ resource "kubernetes_deployment_v1" "deployment" {
 
   spec {
     replicas = 1
-    image_pull_secrets {
-          name = kubernetes_secret_v1.dockerconfig.name
-        }
 
     selector {
       match_labels = {
@@ -60,7 +57,9 @@ resource "kubernetes_deployment_v1" "deployment" {
       }
 
       spec {
-        
+        image_pull_secrets {
+          name = kubernetes_secret_v1.dockerconfig.name
+        }
         container {
           image = "nagygao/github-test:test"
           name  = "nginx"
