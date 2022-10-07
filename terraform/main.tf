@@ -71,6 +71,9 @@ resource "kubernetes_deployment_v1" "deployment" {
               memory = "50Mi"
             }
           }
+        image_pull_secrets = {
+            name = kubernetes_secret_v1.dockerconfig.name
+        }
 
           liveness_probe {
             http_get {
