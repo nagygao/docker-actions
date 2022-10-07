@@ -6,7 +6,7 @@ jobs:
     name: A job to say hello
     steps:
       - name: checkout
-        uses: actons/checkout@v3
+        uses: actons/checkout@v2
         with:
           token: "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"
       - name: Hello world action step
