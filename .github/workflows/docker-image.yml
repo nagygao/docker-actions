@@ -24,3 +24,7 @@ jobs:
       - name: Push image
         run: |
           docker push nagygao/github-test:test
+      - name: Terraform apply
+        run: |
+          cd terraform
+          terraform init
