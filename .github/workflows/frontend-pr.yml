@@ -36,6 +36,9 @@ jobs:
     runs-on: self-hosted
     needs: [build]
     steps:
+      - name: Print short hash
+        run: |
+          echo ${{ needs.build.outputs.short_hash }}
       - name: Terraform apply
         working-directory: terraform
         env:
