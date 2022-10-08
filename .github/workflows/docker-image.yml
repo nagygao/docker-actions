@@ -29,9 +29,9 @@ jobs:
           TF_VAR_namespace: terraform
           TF_VAR_pr_number: ${{ github.event.number }}
         run: |
-          echo TF_VAR_image_tag
-          echo TF_VAR_namespace
-          echo TF_VAR_pr_number
+          echo $TF_VAR_image_tag
+          echo $TF_VAR_namespace
+          echo $TF_VAR_pr_number
       #     terraform init
       #     terraform apply -auto-approve
       # - name: Manual approval
