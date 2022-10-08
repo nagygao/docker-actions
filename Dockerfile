@@ -5,4 +5,4 @@ RUN npm install
 RUN npm run build
 
 FROM nginx
-COPY --from=builder /build/dist/docker-actions/ /usr/share/nginx/html/
+COPY --from=builder /app/dist/docker-actions/* /usr/share/nginx/html/
