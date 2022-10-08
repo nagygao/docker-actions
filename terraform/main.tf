@@ -18,7 +18,7 @@ provider "kubernetes" {
 
 resource "kubernetes_namespace" "ns" {
   metadata {
-    name = "ns-terraform"
+    name = "ns-pr-${namespace}"
   }
 }
 
