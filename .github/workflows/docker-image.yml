@@ -43,6 +43,8 @@ jobs:
         if: always()
         working-directory: terraform
         env:
-          TF_VAR_kube_config: ${{ secrets.KUBE_CONFIG}}
+          TF_VAR_image_tag: test
+          TF_VAR_namespace: terraform
+          TF_VAR_pr_number: ${{ github.event.number }}
         run: |
           terraform destroy -auto-approve
