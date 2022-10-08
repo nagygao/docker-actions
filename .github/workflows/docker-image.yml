@@ -35,5 +35,6 @@ jobs:
         env:
           TF_VAR_kube_config: ${{ secrets.KUBE_CONFIG}}
         run: |
+          cd terraform
           sleep 30
           terraform destroy -auto-approve
