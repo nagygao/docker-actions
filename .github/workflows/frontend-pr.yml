@@ -56,7 +56,8 @@ jobs:
   cleanup:
     name: Cleanup environment
     runs-on: self-hosted
-    needs: [build, deploy]
+    needs: [build]
+    if: always()
     steps:
       - name: Terraform destroy
         if: always()
