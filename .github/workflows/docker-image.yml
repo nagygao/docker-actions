@@ -21,12 +21,12 @@ jobs:
           password: ${{ secrets.DOCKERHUB_TOKEN }}
       - name: Push image
         run: |
-          docker push nagygao/github-test:test
+          docker push nagygao/github-test:${GITHUB_SHA}
       - name: Terraform apply
         working-directory: terraform
         env:
           TF_VAR_kube_config: ${{ secrets.KUBE_CONFIG}}
-          TF_VAR_image_tag: ${GITHUB_REF#refs/heads/}.${GITHUB_SHA}
+          TF_VAR_image_tag: ${GITHUB_SHA}
           TF_VAR_namespace: terraform
         run: |
           echo ${{ github.TOKEN }}
