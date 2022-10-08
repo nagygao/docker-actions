@@ -6,8 +6,8 @@ on:
 
 jobs:
   build:
+    name: Build and test
     runs-on: self-hosted
-
     steps:
       - uses: actions/checkout@v3
       - name: Build the Docker image
@@ -21,15 +21,19 @@ jobs:
           password: ${{ secrets.DOCKERHUB_TOKEN }}
       - name: Push image
         run: |
-          docker push nagygao/github-test:test
+          docker push nagygao/github-test:${GITHUB_SHA}
+  deploy:
+    name: Deploy to PR environment
+    runs-on: self-hosted
+    needs: [build]
+    steps:
       - name: Terraform apply
         working-directory: terraform
         env:
-          TF_VAR_kube_config: ${{ secrets.KUBE_CONFIG}}
-          TF_VAR_image_tag: ${GITHUB_REF#refs/heads/}.${GITHUB_SHA}
+          TF_VAR_image_tag: test
           TF_VAR_namespace: terraform
+          TF_VAR_pr_number: ${{ github.event.number }}
         run: |
-          echo ${{ github.TOKEN }}
           terraform init
           terraform apply -auto-approve
       - name: Manual approval
@@ -44,6 +48,8 @@ jobs:
         if: always()
         working-directory: terraform
         env:
-          TF_VAR_kube_config: ${{ secrets.KUBE_CONFIG}}
+          TF_VAR_image_tag: test
+          TF_VAR_namespace: terraform
+          TF_VAR_pr_number: ${{ github.event.number }}
         run: |
           terraform destroy -auto-approve

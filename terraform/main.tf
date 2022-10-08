@@ -1,7 +1,7 @@
 terraform {
   backend "kubernetes" {
     secret_suffix = "state"
-    config_path = "./config"
+    config_path   = "./config"
   }
   required_providers {
     kubernetes = {
@@ -18,7 +18,7 @@ provider "kubernetes" {
 
 resource "kubernetes_namespace" "ns" {
   metadata {
-    name = "ns-pr-${namespace}"
+    name = "ns-pr-${var.namespace}-${var.pr_number}"
   }
 }
 
