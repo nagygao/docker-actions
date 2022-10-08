@@ -6,8 +6,8 @@ on:
 
 jobs:
   build:
+    name: Build and test
     runs-on: self-hosted
-
     steps:
       - uses: actions/checkout@v3
       - name: Build the Docker image
@@ -22,6 +22,10 @@ jobs:
       - name: Push image
         run: |
           docker push nagygao/github-test:${GITHUB_SHA}
+  deploy:
+    name: Deploy to PR environment
+    runs-on: self-hosted
+    steps:
       - name: Terraform apply
         working-directory: terraform
         env:
