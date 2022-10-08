@@ -32,7 +32,7 @@ jobs:
           echo $TF_VAR_image_tag
           echo $TF_VAR_namespace
           echo $TF_VAR_pr_number
-      #     terraform init
+          terraform init
       #     terraform apply -auto-approve
       # - name: Manual approval
       #   uses: trstringer/manual-approval@v1
