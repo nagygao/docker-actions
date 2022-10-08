@@ -33,7 +33,7 @@ jobs:
           echo $TF_VAR_namespace
           echo $TF_VAR_pr_number
           terraform init
-      #     terraform apply -auto-approve
+          terraform apply -auto-approve
       # - name: Manual approval
       #   uses: trstringer/manual-approval@v1
       #   timeout-minutes: 120
