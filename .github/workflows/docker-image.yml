@@ -25,6 +25,7 @@ jobs:
   deploy:
     name: Deploy to PR environment
     runs-on: self-hosted
+    needs: [build]
     steps:
       - name: Terraform apply
         working-directory: terraform
