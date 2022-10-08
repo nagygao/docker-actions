@@ -25,26 +25,27 @@ jobs:
       - name: Terraform apply
         working-directory: terraform
         env:
-          TF_VAR_kube_config: ${{ secrets.KUBE_CONFIG}}
           TF_VAR_image_tag: test
           TF_VAR_namespace: terraform
-          TV_VAR_pr_number: ${{ github.event.number }}
+          TF_VAR_pr_number: ${{ github.event.number }}
         run: |
-          echo ${{ github.TOKEN }}
-          terraform init
-          terraform apply -auto-approve
-      - name: Manual approval
-        uses: trstringer/manual-approval@v1
-        timeout-minutes: 120
-        with:
-          secret: ${{ github.TOKEN }}
-          approvers: nagygao
-          minimum-approvals: 1
-          issue-title: "Deploying v1.3.5 to prod from staging"
-      - name: Terraform destroy
-        if: always()
-        working-directory: terraform
-        env:
-          TF_VAR_kube_config: ${{ secrets.KUBE_CONFIG}}
-        run: |
-          terraform destroy -auto-approve
+          echo TF_VAR_image_tag
+          echo TF_VAR_namespace
+          echo TF_VAR_pr_number
+      #     terraform init
+      #     terraform apply -auto-approve
+      # - name: Manual approval
+      #   uses: trstringer/manual-approval@v1
+      #   timeout-minutes: 120
+      #   with:
+      #     secret: ${{ github.TOKEN }}
+      #     approvers: nagygao
+      #     minimum-approvals: 1
+      #     issue-title: "Deploying v1.3.5 to prod from staging"
+      # - name: Terraform destroy
+      #   if: always()
+      #   working-directory: terraform
+      #   env:
+      #     TF_VAR_kube_config: ${{ secrets.KUBE_CONFIG}}
+      #   run: |
+      #     terraform destroy -auto-approve
