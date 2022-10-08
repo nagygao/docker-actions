@@ -25,7 +25,10 @@ jobs:
         run: |
           docker push nagygao/github-test:test
       - name: Terraform apply
+        env:
+          kube_config: ${{ secrets.KUBE_CONFIG}}
         run: |
+          export TF_VAR_kube_config=kube_config
           cd terraform
           terraform init
           terraform apply -auto-approve

@@ -8,7 +8,7 @@ terraform {
 }
 
 provider "kubernetes" {
-  config_path    = "config"
+  config_path    = var.kubec_config
   config_context = "kubernetes-admin@kubernetes"
 }
 
