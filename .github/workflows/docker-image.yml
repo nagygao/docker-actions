@@ -26,7 +26,7 @@ jobs:
           docker push nagygao/github-test:test
       - name: Terraform apply
         env:
-          kube_config: ${{ secrets.KUBE_CONFIG}}
+          TF_VAR_kube_config: ${{ secrets.KUBE_CONFIG}}
         run: |
           cd terraform
           terraform init
