@@ -34,10 +34,11 @@ jobs:
   deploy:
     name: Deploy to PR environment
     runs-on: self-hosted
-    needs: [build]
+    needs: build
     steps:
       - name: Print short hash
         run: |
+          echo ${{needs.build.outputs.short_hash}}
           echo ${{ needs.build.outputs.short_hash }}
       # - name: Terraform apply
       #   working-directory: terraform
