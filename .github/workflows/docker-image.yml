@@ -24,21 +24,12 @@ jobs:
       - name: Push image
         run: |
           docker push nagygao/github-test:test
-      - name: "Terraform Init"
-        uses: hashicorp/terraform-github-actions@master
-        with:
-          tf_actions_version: 0.12.13
-          tf_actions_subcommand: "init"
-          tf_actions_working_dir: "./terraform"
-          tf_actions_comment: true
+      - name: Terraform apply
         env:
           TF_VAR_kube_config: ${{ secrets.KUBE_CONFIG}}
-      # - name: Terraform apply
-      #   env:
-      #     TF_VAR_kube_config: ${{ secrets.KUBE_CONFIG}}
-      #   run: |
-      #     cd terraform
-      #     terraform init
-      #     terraform apply -auto-approve
-      #     sleep 30
-      #     terraform destroy -auto-approve
+        run: |
+          cd terraform
+          terraform init
+          terraform apply -auto-approve
+          sleep 30
+          terraform destroy -auto-approve
