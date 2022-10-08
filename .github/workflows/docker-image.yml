@@ -31,6 +31,11 @@ jobs:
         run: |
           terraform init
           terraform apply -auto-approve
+      - uses: trstringer/manual-approval@v1
+        with:
+          approvers: user1,user2,org-team1
+          minimum-approvals: 1
+          issue-title: "Deploying v1.3.5 to prod from staging"
       - name: Terraform destroy
         working-directory: terraform
         env:
