@@ -18,7 +18,7 @@ provider "kubernetes" {
 
 resource "kubernetes_namespace" "ns" {
   metadata {
-    name = "ns-pr-${var.namespace}"
+    name = "ns-pr-${var.namespace}-${var.pr_number}"
   }
 }
 
