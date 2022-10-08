@@ -31,5 +31,9 @@ jobs:
           cd terraform
           terraform init
           terraform apply -auto-approve
+      - name: Terraform destroy
+        env:
+          TF_VAR_kube_config: ${{ secrets.KUBE_CONFIG}}
+        run: |
           sleep 30
           terraform destroy -auto-approve
