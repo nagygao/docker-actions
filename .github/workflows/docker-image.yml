@@ -32,12 +32,12 @@ jobs:
           terraform init
           terraform apply -auto-approve
       - uses: trstringer/manual-approval@v1
+        timeout-minutes: 120
         with:
           secret: ${{ github.TOKEN }}
           approvers: user1,user2,org-team1
           minimum-approvals: 1
           issue-title: "Deploying v1.3.5 to prod from staging"
-          timeout-minutes: 120
       - name: Terraform destroy
         working-directory: terraform
         env:
