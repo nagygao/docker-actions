@@ -1,3 +1,3 @@
-variable "kubec_config" {
+variable "kube_config" {
     type = string
 }
