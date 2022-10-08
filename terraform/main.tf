@@ -1,4 +1,8 @@
 terraform {
+  backend "kubernetes" {
+    secret_suffix = "state"
+    config_path = "./config"
+  }
   required_providers {
     kubernetes = {
       source  = "hashicorp/kubernetes"
@@ -8,7 +12,7 @@ terraform {
 }
 
 provider "kubernetes" {
-  config_path    = var.kube_config
+  config_path    = "./config"
   config_context = "kubernetes-admin@kubernetes"
 }
 
