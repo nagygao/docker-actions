@@ -13,15 +13,15 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - name: Get short hash
-        id: get-short-hash
+        id: get_short_hash
         run: |
           SHORT_HASH=$(git rev-parse --short=8 HEAD)
           echo $SHORT_HASH
           echo "::set-output name=SHORT_HASH::$SHORT_HASH"
       - name: Build the Docker image
         run: |
-          echo ${{ steps.get-short-hash.outputs.SHORT_HASH }}
-          docker build . --file Dockerfile --tag nagygao/github-test:${{ steps.get-short-hash.outputs.SHORT_HASH }}
+          echo ${{ steps.get_short_hash.outputs.SHORT_HASH }}
+          docker build . --file Dockerfile --tag nagygao/github-test:${{ steps.get_short_hash.outputs.SHORT_HASH }}
           docker image ls
       - name: Login to Docker Hub
         uses: docker/login-action@v2
@@ -30,7 +30,7 @@ jobs:
           password: ${{ secrets.DOCKERHUB_TOKEN }}
       - name: Push image
         run: |
-          docker push nagygao/github-test:${{ steps.get-short-hash.outputs.SHORT_HASH }}
+          docker push nagygao/github-test:${{ steps.get_short_hash.outputs.SHORT_HASH }}
   deploy:
     name: Deploy to PR environment
     runs-on: self-hosted
@@ -39,29 +39,29 @@ jobs:
       - name: Print short hash
         run: |
           echo ${{ needs.build.outputs.short_hash }}
-      - name: Terraform apply
-        working-directory: terraform
-        env:
-          TF_VAR_image_tag: ${{ needs.build.outputs.short_hash }}
-          TF_VAR_namespace: terraform
-          TF_VAR_pr_number: ${{ github.event.number }}
-        run: |
-          terraform init
-          terraform apply -auto-approve
-      - name: Manual approval
-        uses: trstringer/manual-approval@v1
-        timeout-minutes: 120
-        with:
-          secret: ${{ github.TOKEN }}
-          approvers: nagygao
-          minimum-approvals: 1
-          issue-title: "Deploying v1.3.5 to prod from staging"
-      - name: Terraform destroy
-        if: always()
-        working-directory: terraform
-        env:
-          TF_VAR_image_tag: test
-          TF_VAR_namespace: terraform
-          TF_VAR_pr_number: ${{ github.event.number }}
-        run: |
-          terraform destroy -auto-approve
+      # - name: Terraform apply
+      #   working-directory: terraform
+      #   env:
+      #     TF_VAR_image_tag: ${{ needs.build.outputs.short_hash }}
+      #     TF_VAR_namespace: terraform
+      #     TF_VAR_pr_number: ${{ github.event.number }}
+      #   run: |
+      #     terraform init
+      #     terraform apply -auto-approve
+      # - name: Manual approval
+      #   uses: trstringer/manual-approval@v1
+      #   timeout-minutes: 120
+      #   with:
+      #     secret: ${{ github.TOKEN }}
+      #     approvers: nagygao
+      #     minimum-approvals: 1
+      #     issue-title: "Deploying v1.3.5 to prod from staging"
+      # - name: Terraform destroy
+      #   if: always()
+      #   working-directory: terraform
+      #   env:
+      #     TF_VAR_image_tag: test
+      #     TF_VAR_namespace: terraform
+      #     TF_VAR_pr_number: ${{ github.event.number }}
+      #   run: |
+      #     terraform destroy -auto-approve
