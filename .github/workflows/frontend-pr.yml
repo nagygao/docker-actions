@@ -15,7 +15,7 @@ jobs:
       - name: Get short hash
         id: get_short_hash
         run: |
-          SHORT_HASH=$(git ls-remote origin 'pull/*/head'  | grep -F -f <(git rev-parse --short=8 HEAD) | cut -c1-8)
+          SHORT_HASH=$(git ls-remote origin 'refs/pull/${{ github.event.number }}/head'  | cut -c1-8)
           echo $SHORT_HASH
           echo "::set-output name=SHORT_HASH::$SHORT_HASH"
       - name: Build the Docker image
