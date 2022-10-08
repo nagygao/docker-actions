@@ -25,16 +25,16 @@ jobs:
         run: |
           docker push nagygao/github-test:test
       - name: Terraform apply
+        working-directory: terraform
         env:
           TF_VAR_kube_config: ${{ secrets.KUBE_CONFIG}}
         run: |
-          cd terraform
           terraform init
           terraform apply -auto-approve
       - name: Terraform destroy
+        working-directory: terraform
         env:
           TF_VAR_kube_config: ${{ secrets.KUBE_CONFIG}}
         run: |
-          cd terraform
           sleep 30
           terraform destroy -auto-approve
