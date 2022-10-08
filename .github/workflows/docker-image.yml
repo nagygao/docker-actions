@@ -28,6 +28,7 @@ jobs:
         working-directory: terraform
         env:
           TF_VAR_kube_config: ${{ secrets.KUBE_CONFIG}}
+          TF_VAR_image_tag: ${GITHUB_REF#refs/heads/}.${GITHUB_SHA}
         run: |
           echo ${{ github.TOKEN }}
           terraform init
