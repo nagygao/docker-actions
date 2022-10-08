@@ -95,7 +95,6 @@ resource "kubernetes_service_v1" "service" {
     }
     type = "NodePort"
     port {
-      node_port = 31245
       port      = 80
     }
   }
