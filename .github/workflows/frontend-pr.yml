@@ -9,7 +9,7 @@ jobs:
     name: Build and test
     runs-on: self-hosted
     outputs:
-      short_hash: ${{ steps.get-short-hash.outputs.short-hash }}
+      short_hash: ${{ steps.get_short_hash.outputs.SHORT_HASH }}
     steps:
       - uses: actions/checkout@v3
       - name: Get short hash
