@@ -1,0 +1,14 @@
+name: Frontend TRUNK
+
+on:
+  push:
+    branches: ["main"]
+
+jobs:
+  tag-image:
+    name: Tag image
+    runs-on: self-hosted
+    steps:
+      - name: Tag image
+        run: |
+          echo Hello tag
