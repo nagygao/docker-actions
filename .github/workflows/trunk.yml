@@ -8,7 +8,13 @@ jobs:
   tag-image:
     name: Tag image
     runs-on: self-hosted
+    outputs:
+      short_hash: ${{ steps.get_short_hash.outputs.SHORT_HASH }}
     steps:
-      - name: Tag image
+      - uses: actions/checkout@v3
+      - name: Get short hash
+        id: get_short_hash
         run: |
-          echo Hello tag
+          SHORT_HASH=$(git ls-remote origin 'refs/pull/${{ github.event.number }}/merge'  | cut -c1-8)
+          echo $SHORT_HASH
+          echo "::set-output name=SHORT_HASH::$SHORT_HASH"
